@@ -75,10 +75,10 @@ public class PerfilFragment extends Fragment {
 
                 alarmManager = (AlarmManager) getActivity().getSystemService(getContext().ALARM_SERVICE);
                 Intent intent = new Intent(getContext(), ReceptorNotificacion.class);
-                intent.putExtra("MotivateWe","true");
+                intent.putExtra("MotivateWe","GG");
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 11, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 alarmManager.cancel(pendingIntent);
-                programarNotificacion();
+                programarNotificacionMotivacion();
             }
 
         });
@@ -92,6 +92,18 @@ public class PerfilFragment extends Fragment {
     }
 
     // MÉTODOS:
+
+    // Notificaciones:
+
+    private void programarNotificacionMotivacion() {
+        Intent intent = new Intent(getContext(), ReceptorNotificacion.class);
+        intent.putExtra("MotivateWe", "GG");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 11, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        // Establecemos la alarma para que se repita cada 1 minuto
+        long interval = perfil.getIntervaloMotivacionNoti()*60*1000; // en milisegundos
+        long triggerTime = System.currentTimeMillis() + interval; // Primero se ejecuta despues del tiempo del intervalor
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, interval, pendingIntent);
+    }
 
     private void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -160,16 +172,6 @@ public class PerfilFragment extends Fragment {
 
     }
 
-    // Notificaciones:
 
-    private void programarNotificacion() {
-        Intent intent = new Intent(getContext(), ReceptorNotificacion.class);
-        intent.putExtra("MotivateWe", "GG");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 11, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        // Establecemos la alarma para que se repita cada x minutos
-        long interval = perfil.getIntervaloMotivacionNoti()*60*1000; // en milisegundos
-        long triggerTime = System.currentTimeMillis() + interval; // Primero se ejecuta despues del tiempo del intervalor
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, interval, pendingIntent);
-    }
 
 }
