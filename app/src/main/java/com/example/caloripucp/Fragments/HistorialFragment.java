@@ -121,7 +121,7 @@ public class HistorialFragment extends Fragment {
 
         // Datos de calorias:
         if(registro.getElementos().isEmpty()){
-            ((TextView)view.findViewById(R.id.text_elementoshow_historial)).setText("Aún no hay elementos!");
+            ((TextView)view.findViewById(R.id.text_elementoshow_historial)).setText("No hay elementos!");
         }else{
             ((TextView)view.findViewById(R.id.text_elementoshow_historial)).setText("ELEMENTOS AÑADIDOS");
 
