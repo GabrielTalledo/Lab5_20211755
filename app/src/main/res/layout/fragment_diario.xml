@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.DiarioFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:id="@+id/layout_titulo_diario2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_theme_inversePrimary_highContrast"
+            android:backgroundTintMode="add"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:paddingVertical="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/layout_titulo_diario1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/md_theme_inversePrimary_highContrast"
+                    android:backgroundTintMode="add"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/text_titulo_diario2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="HOY"
+                        android:textAlignment="center"
+                        android:textSize="34sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+
+                    <TextView
+                        android:id="@+id/text_numero_dia_diario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Día N°1"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_titulo_diario3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/md_theme_inversePrimary_highContrast"
+                    android:backgroundTintMode="add"
+                    android:gravity="center|end"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/text_nombre_dia_diario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Domingo"
+                        android:textAlignment="center"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+
+                    <TextView
+                        android:id="@+id/text_fecha_diario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="06/10/2024"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:typeface="normal" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_calorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="@color/md_theme_onPrimary"
+            app:cardElevation="3dp"
+            app:contentPadding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_titulo_diario2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/bienvenida"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="CALORÍAS:"
+                        android:textAlignment="viewStart"
+                        android:textAllCaps="false"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textNombreCompleto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="Restantes = Meta - Comida + Ejercicio" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="20dp">
+
+                        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                            android:id="@+id/progressbar_calorias_diario"
+                            android:layout_width="match_parent"
+                            android:layout_height="160dp"
+                            android:layout_gravity="center"
+                            app:cpb_background_progressbar_color="@color/md_theme_outlineVariant_mediumContrast"
+                            app:cpb_background_progressbar_width="5dp"
+                            app:cpb_progress_max="100"
+                            app:cpb_progress="67"
+                            app:cpb_progress_direction="to_right"
+                            app:cpb_progressbar_color="@color/md_theme_inversePrimary_highContrast"
+                            app:cpb_progressbar_width="10dp"
+                            app:cpb_round_border="false" />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/calorias_restantes_diario"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1250"
+                                android:textSize="34sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/text_calos_restante"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Kcal restantes" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="0"
+                                android:backgroundTint="#FFFFFF"
+                                android:src="@drawable/objetivo" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Meta por cumplir"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_meta_diario"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1500 kcal" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView51"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="0"
+                                android:backgroundTint="#FFFFFF"
+                                android:src="@drawable/comida" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView62"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Comida"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_caloria_comida_diario"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1500 kcal" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView32"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="0"
+                                android:backgroundTint="#FFFFFF"
+                                android:src="@drawable/ejercicio" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView39"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Ejercicio"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_caloria_ejercicio_diario"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1500 kcal" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageView321"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:layout_weight="0"
+                                android:backgroundTint="#FFFFFF"
+                                android:src="@drawable/calorias" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/textView392"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total consumido"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_caloria_total_diario"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1500 kcal" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/text_elementoshow_diario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="ELEMENTOS AÑADIDOS"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_calorias" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_registro_diario"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clipChildren="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_elementoshow_diario" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.nambimobile.widgets.efab.ExpandableFabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/expandable_fab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.nambimobile.widgets.efab.ExpandableFab
+            android:id="@+id/expandable_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            app:efab_closingAnticipateTension="0"
+            app:efab_color="@color/md_theme_primary"
+            app:efab_icon="@drawable/mas"
+            app:efab_iconAnimationRotationDeg="-225"
+            app:label_backgroundColor="@color/md_theme_onPrimary"
+            app:label_font="@font/product_sans"
+            app:label_textColor="@color/md_theme_primary" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/btn_agregar_comida_diario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/md_theme_primaryFixed"
+            app:fab_icon="@drawable/comida2"
+            app:label_backgroundColor="@color/md_theme_onPrimary"
+            app:label_font="@font/product_sans"
+            app:label_text="Comida"
+            app:label_textColor="@color/md_theme_primary" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/btn_agregar_ejercicio_diario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/md_theme_tertiaryContainer"
+            app:fab_icon="@drawable/ejercicio2"
+            app:label_backgroundColor="@color/md_theme_onPrimary"
+            app:label_font="@font/product_sans"
+            app:label_text="Ejercicio"
+            app:label_textColor="@color/md_theme_primary" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/btn_agregar_catalogo_diario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/md_theme_inversePrimary"
+            app:fab_icon="@drawable/catalogo"
+            app:label_backgroundColor="@color/md_theme_onPrimary"
+            app:label_font="@font/product_sans"
+            app:label_text="Catálogo"
+            app:label_textColor="@color/md_theme_primary" />
+
+        <com.nambimobile.widgets.efab.FabOption
+            android:id="@+id/btn_pasardia_diario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_color="@color/md_theme_outline_mediumContrast"
+            app:fab_icon="@drawable/pasar"
+            app:label_backgroundColor="@color/md_theme_onPrimary"
+            app:label_font="@font/product_sans"
+            app:label_text="Pasar día"
+            app:label_textColor="@color/md_theme_primary" />
+
+    </com.nambimobile.widgets.efab.ExpandableFabLayout>
+
+</FrameLayout>

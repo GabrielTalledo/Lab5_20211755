@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTintMode="add"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="Catálogo"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dialogMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="Por favor, seleccione un alimento del catálogo para añadirlo al registro diario:"
+            android:textSize="16sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/field_elemento_catalogo_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:hint="Alimentos del catálogo"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/textoError"
+            app:startIconDrawable="@drawable/catalogo">
+
+            <AutoCompleteTextView
+                android:id="@+id/field_elemento_catalogo"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:autoSizeMaxTextSize="16sp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeStepGranularity="1sp"
+                android:autoSizeTextType="uniform"
+                android:inputType="none"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_registro_catalogo"
+            style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/md_theme_onPrimaryFixedVariant"
+            android:padding="0dp"
+            android:text="Confirmar"
+            android:textColor="@color/md_theme_background"
+            android:textSize="16sp"
+            app:iconGravity="textStart"
+            app:iconTint="@color/md_theme_background"
+            app:rippleColor="@color/md_theme_background_mediumContrast" />
+
+        <TextView
+            android:id="@+id/dialogMessage2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Si desea, introduzca un alimento para añadirlo al catálogo:"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/field_nombre_catalogo_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="0dp"
+                android:hint="Nombre del alimento"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/textoError"
+                app:startIconDrawable="@drawable/catalogo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/field_nombre_catalogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/field_calorias_catalogo_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="0dp"
+                android:hint="Calorías del alimento (kcal)"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/textoError"
+                app:startIconDrawable="@drawable/calorias">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/field_caloria_catalogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:inputType="number"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_confirm_catalogo"
+                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/md_theme_inversePrimary_mediumContrast"
+                android:padding="0dp"
+                android:text="Añadir"
+                android:textColor="@color/md_theme_background"
+                android:textSize="16sp"
+                app:iconGravity="textStart"
+                app:iconTint="@color/md_theme_background"
+                app:rippleColor="@color/md_theme_background_mediumContrast" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/registro_diario"
+        android:enabled="true"
+        android:icon="@drawable/registro_actual"
+        android:title="Diario"/>
+    <item
+        android:id="@+id/registro_historial"
+        android:enabled="true"
+        android:icon="@drawable/calendario"
+        android:title="Historial"/>
+    <item
+        android:id="@+id/perfil"
+        android:enabled="true"
+        android:icon="@drawable/perfil"
+        android:title="Perfil"/>
+</menu>
