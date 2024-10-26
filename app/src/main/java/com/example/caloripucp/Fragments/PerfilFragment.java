@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -59,10 +60,11 @@ public class PerfilFragment extends Fragment {
         btnIntervalo.setOnClickListener(view1 -> {
 
             if(validarCampos(view)){
+                closeKeyboard();
                 perfil.setIntervaloMotivacionNoti(Integer.parseInt(((TextInputEditText)view.findViewById(R.id.field_modificar_noti_perfil)).getText().toString()));
                 Almacenamiento.guardarPerfilInicial(perfil,(AppCompatActivity) getActivity());
                 Snackbar.make(((AppActivity) getActivity()).getBinding().getRoot(), "Se modificó el intervalo de motivación!", Snackbar.LENGTH_LONG).show();
-                ((TextView)view.findViewById(R.id.text_intervalo_actual_perfil)).setText("Intervalo actual: "+perfil.getIntervaloMotivacionNoti()+" minutos");
+                ((TextView)view.findViewById(R.id.text_intervalo_actual_perfil)).setText("Intervalo actual: "+perfil.getIntervaloMotivacionNoti()+" minuto"+(perfil.getIntervaloMotivacionNoti()==1?"":"s"));
 
                 // Método con worker (solo funciona si la app esta en primer o segundo plano)
                 // Eliminamos los workers anteriores:
@@ -90,6 +92,15 @@ public class PerfilFragment extends Fragment {
     }
 
     // MÉTODOS:
+
+    private void closeKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = requireActivity().getCurrentFocus();
+        if (view == null) {
+            view = new View(requireActivity());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     public void quitarErrores(View view){
         ((TextInputLayout)view.findViewById(R.id.field_modificar_noti_perfil_layout)).setError(null);
@@ -120,7 +131,7 @@ public class PerfilFragment extends Fragment {
         ((TextView)view.findViewById(R.id.text_objetivo_perfil)).setText(""+perfil.getObjetivo());
         ((TextView)view.findViewById(R.id.text_numero_dia_perfil)).setText(""+numeroDias);
         ((TextView)view.findViewById(R.id.text_caloria_diarias_perfil)).setText(""+perfil.getObjetivoCaloriasDiarias()+" kcal");
-        ((TextView)view.findViewById(R.id.text_intervalo_actual_perfil)).setText("Intervalo actual: "+perfil.getIntervaloMotivacionNoti()+" minutos");
+        ((TextView)view.findViewById(R.id.text_intervalo_actual_perfil)).setText("Intervalo actual: "+perfil.getIntervaloMotivacionNoti()+" minuto"+(perfil.getIntervaloMotivacionNoti()==1?"":"s"));
 
 
     }

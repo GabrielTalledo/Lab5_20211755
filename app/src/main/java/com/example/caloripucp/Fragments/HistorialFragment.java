@@ -1,9 +1,11 @@
 package com.example.caloripucp.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -72,6 +74,7 @@ public class HistorialFragment extends Fragment {
 
                 if(validarCampos(view, historial.getHistorial().size())){
                     quitarErrores(view);
+                    closeKeyboard();
                     numeroDia = Integer.parseInt(((TextInputEditText)view.findViewById(R.id.field_buscar_registro_historial)).getText().toString());
                     registro = historial.getHistorial().get(numeroDia);
                     elementoAdapter.setElementos(registro.getElementos());
@@ -149,6 +152,15 @@ public class HistorialFragment extends Fragment {
             progressBar.setBackgroundProgressBarColor(ContextCompat.getColor(requireContext(),R.color.md_theme_outlineVariant));
             progressBar.setProgress((int) progreso);
         }
+    }
+
+    private void closeKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        View view = requireActivity().getCurrentFocus();
+        if (view == null) {
+            view = new View(requireActivity());
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }
