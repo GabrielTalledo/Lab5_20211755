@@ -163,11 +163,13 @@ public class DiarioFragment extends Fragment {
             if(progreso<15){
                 progressBar.setProgressBarColor(ContextCompat.getColor(requireContext(),R.color.md_theme_tertiaryFixedDim));
             }else{
+                ((TextView)view.findViewById(R.id.text_calos_restante)).setText("Kcal restantes");
                 progressBar.setProgressBarColor(ContextCompat.getColor(requireContext(),R.color.md_theme_inversePrimary_highContrast));
             }
             progressBar.setBackgroundProgressBarColor(ContextCompat.getColor(requireContext(),R.color.md_theme_outlineVariant_mediumContrast));
             progressBar.setProgress((int) progreso);
         }
+
     }
 
     // Bottoms sheets dialogs:
