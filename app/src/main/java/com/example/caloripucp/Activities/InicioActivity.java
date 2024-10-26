@@ -33,6 +33,7 @@ import com.example.caloripucp.Notifications.Recordatorio.ReceptorNotificacion;
 import com.example.caloripucp.R;
 import com.example.caloripucp.Tools.Almacenamiento;
 import com.example.caloripucp.databinding.ActivityInicioBinding;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -126,44 +127,51 @@ public class InicioActivity extends AppCompatActivity {
 
         btn_ingresar.setOnClickListener(view -> {
             if(validarCampos()){
-                // Seteamos el perfil inicial:
-                perfil.setNombre(field_nombre.getText().toString());
-                perfil.setPeso(Double.parseDouble(field_peso.getText().toString()));
-                perfil.setAltura(Double.parseDouble(field_altura.getText().toString()));
-                perfil.setEdad(Double.parseDouble(field_edad.getText().toString()));
-                perfil.setObjetivoCaloriasDiarias(calcularCaloriasDiarias());
-                perfil.setIntervaloMotivacionNoti(1);
-                // Creamos el archivo del perfil y guardamos el objeto:
-                Almacenamiento.guardarPerfilInicial(perfil, this);
-                // Creamos el primer registro (el registro actual):
-                Registro registroActual = new Registro();
-                registroActual.setearInformacionDia(1);
-                // Guardamos este primer registro:
-                Almacenamiento.guardarRegistroDiario(registroActual, this);
-                // Guardamos el catalogo:
-                Almacenamiento.guardarCatalogo(catalogo,this);
-                // Guardamos el historial:
-                Almacenamiento.guardarHistorial(historial,this);
-                // Notificaciones de recordatorios personalizados:
-                // Debido a la optimizacion de batería de android, algunas no se muestran correctamente y tampoco en el
-                // tiempo exacto
-                ProgramadorNotificacion.programarRecordatorio(this, 9, 0, "Recordatorio de desayuno", "Recuerda registrar tu delicioso desayuno en la app!","Diario",R.drawable.desayuno);
-                ProgramadorNotificacion.programarRecordatorio(this, 12, 0, "Recordatorio de almuerzo", "No olvides de registrar tu almuerzo nutritivo en la app!","Diario",R.drawable.almuerzo);
-                ProgramadorNotificacion.programarRecordatorio(this, 19, 0, "Recordatorio de cena", "Registra tu cena nocturna en la app, no lo olvides!","Diario",R.drawable.comida2);
-                ProgramadorNotificacion.programarRecordatorio(this, 23, 0, "Recordatorio de fin de día", "No has registrado comidas hoy. Recuerda llevar tu registro para lograr tus metas!","Diario",R.drawable.alerta);
-                // Notificaciones de motivación:
 
-                // Método con worker (solo funciona si la app esta en primer o segundo plano)
-                //WorkManager.getInstance(this).cancelAllWork();
-                //PeriodicWorkRequest notificationWorkRequest = new PeriodicWorkRequest.Builder(NotificationWorker.class, perfil.getIntervaloMotivacionNoti(), TimeUnit.MINUTES).setInitialDelay(perfil.getIntervaloMotivacionNoti(),TimeUnit.MINUTES).build();
-                //WorkManager.getInstance(this).enqueueUniquePeriodicWork("NotificacionesPeriodicas", ExistingPeriodicWorkPolicy.REPLACE,notificationWorkRequest);
+                // Obtenemos permisos de notificaciones:
 
-                alarmManager = (AlarmManager) getSystemService(this.ALARM_SERVICE);
-                programarNotificacionMotivacion();
+                if(!askPermission()){
+                    Snackbar.make(binding.getRoot(), "Debe habilitar los permisos de notificaciones!", Snackbar.LENGTH_SHORT).show();
+                }else{
+                    // Seteamos el perfil inicial:
+                    perfil.setNombre(field_nombre.getText().toString());
+                    perfil.setPeso(Double.parseDouble(field_peso.getText().toString()));
+                    perfil.setAltura(Double.parseDouble(field_altura.getText().toString()));
+                    perfil.setEdad(Double.parseDouble(field_edad.getText().toString()));
+                    perfil.setObjetivoCaloriasDiarias(calcularCaloriasDiarias());
+                    perfil.setIntervaloMotivacionNoti(1);
+                    // Creamos el archivo del perfil y guardamos el objeto:
+                    Almacenamiento.guardarPerfilInicial(perfil, this);
+                    // Creamos el primer registro (el registro actual):
+                    Registro registroActual = new Registro();
+                    registroActual.setearInformacionDia(1);
+                    // Guardamos este primer registro:
+                    Almacenamiento.guardarRegistroDiario(registroActual, this);
+                    // Guardamos el catalogo:
+                    Almacenamiento.guardarCatalogo(catalogo,this);
+                    // Guardamos el historial:
+                    Almacenamiento.guardarHistorial(historial,this);
+                    // Notificaciones de recordatorios personalizados:
+                    // Debido a la optimizacion de batería de android, algunas no se muestran correctamente y tampoco en el
+                    // tiempo exacto
+                    ProgramadorNotificacion.programarRecordatorio(this, 9, 0, "Recordatorio de desayuno", "Recuerda registrar tu delicioso desayuno en la app!","Diario",R.drawable.desayuno);
+                    ProgramadorNotificacion.programarRecordatorio(this, 12, 0, "Recordatorio de almuerzo", "No olvides de registrar tu almuerzo nutritivo en la app!","Diario",R.drawable.almuerzo);
+                    ProgramadorNotificacion.programarRecordatorio(this, 19, 0, "Recordatorio de cena", "Registra tu cena nocturna en la app, no lo olvides!","Diario",R.drawable.comida2);
+                    ProgramadorNotificacion.programarRecordatorio(this, 23, 0, "Recordatorio de fin de día", "No has registrado comidas hoy. Recuerda llevar tu registro para lograr tus metas!","Diario",R.drawable.alerta);
+                    // Notificaciones de motivación:
 
-                // Pasamos a la app:
-                startActivity(new Intent(this,AppActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-                supportFinishAfterTransition();
+                    // Método con worker (solo funciona si la app esta en primer o segundo plano)
+                    //WorkManager.getInstance(this).cancelAllWork();
+                    //PeriodicWorkRequest notificationWorkRequest = new PeriodicWorkRequest.Builder(NotificationWorker.class, perfil.getIntervaloMotivacionNoti(), TimeUnit.MINUTES).setInitialDelay(perfil.getIntervaloMotivacionNoti(),TimeUnit.MINUTES).build();
+                    //WorkManager.getInstance(this).enqueueUniquePeriodicWork("NotificacionesPeriodicas", ExistingPeriodicWorkPolicy.REPLACE,notificationWorkRequest);
+
+                    alarmManager = (AlarmManager) getSystemService(this.ALARM_SERVICE);
+                    programarNotificacionMotivacion();
+
+                    // Pasamos a la app:
+                    startActivity(new Intent(this,AppActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    supportFinishAfterTransition();
+                }
             }
 
         });
@@ -199,13 +207,18 @@ public class InicioActivity extends AppCompatActivity {
         askPermission();
     }
 
-    public void askPermission() {
+    public boolean askPermission() {
+        boolean permiso = true;
         // TIRAMISU = 33
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                 ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
 
             ActivityCompat.requestPermissions(InicioActivity.this, new String[]{POST_NOTIFICATIONS}, 101);
         }
+        if(ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED){
+            permiso = false;
+        }
+        return permiso;
     }
 
     // Otros:
@@ -283,7 +296,7 @@ public class InicioActivity extends AppCompatActivity {
         }
         if(field_objetivo.getText().toString().isEmpty()){
             validacion = false;
-            binding.fieldObjetivoLayout.setError("Debe elegir un pbjetivo!");
+            binding.fieldObjetivoLayout.setError("Debe elegir un objetivo!");
         }
 
         return validacion;

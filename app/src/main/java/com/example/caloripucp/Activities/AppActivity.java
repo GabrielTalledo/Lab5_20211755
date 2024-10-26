@@ -88,14 +88,14 @@ public class AppActivity extends AppCompatActivity implements BottomNavigationVi
         }
         // Actualizamos en el almacenamiento:
         Almacenamiento.guardarRegistroDiario(registro,this);
-        Snackbar.make(binding.getRoot(), "Elemento agregado al registro diario!", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), "Elemento agregado al registro diario!", Snackbar.LENGTH_SHORT).setAnchorView(R.id.bottom_navigation).show();
     }
 
     public void agregarRegistroDiario(Registro registro) {
         registroDiarioLiveData.setValue(registro);
         // Actualizamos en el almacenamiento:
         Almacenamiento.guardarRegistroDiario(registro,this);
-        Snackbar.make(binding.getRoot(), "Nuevo día para registrar!", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), "Nuevo día para registrar!", Snackbar.LENGTH_SHORT).setAnchorView(R.id.bottom_navigation).show();
     }
 
     public void eliminarElementoRegistroDiario(int posicion) {
@@ -106,7 +106,7 @@ public class AppActivity extends AppCompatActivity implements BottomNavigationVi
         }
         // Actualizamos en el almacenamiento:
         Almacenamiento.guardarRegistroDiario(registro,this);
-        Snackbar.make(binding.getRoot(), "Elemento eliminado del registro diario!", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), "Elemento eliminado del registro diario!", Snackbar.LENGTH_SHORT).setAnchorView(R.id.bottom_navigation).show();
     }
 
     // Perfil:
@@ -119,7 +119,7 @@ public class AppActivity extends AppCompatActivity implements BottomNavigationVi
         perfilLiveData.setValue(perfil);
         // Actualizamos en el almacenamiento:
         Almacenamiento.guardarPerfilInicial(perfil,this);
-        Snackbar.make(binding.getRoot(), "Perfil actualizado!", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(binding.getRoot(), "Perfil actualizado!", Snackbar.LENGTH_SHORT).setAnchorView(R.id.bottom_navigation).show();
     }
 
     @Override

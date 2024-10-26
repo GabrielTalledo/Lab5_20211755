@@ -59,7 +59,7 @@ public class HistorialFragment extends Fragment {
 
         if(historial.getHistorial() == null || historial.getHistorial().isEmpty()){
             layoutValidacion.setVisibility(View.GONE);
-            ((TextView)view.findViewById(R.id.text_numero_dia_historial)).setText("Aún no hay registros en el historial!");
+            ((TextView)view.findViewById(R.id.text_numero_dia_historial)).setText("Aún no hay registros en el historial !");
         }else{
             layoutValidacion.setVisibility(View.VISIBLE);
 

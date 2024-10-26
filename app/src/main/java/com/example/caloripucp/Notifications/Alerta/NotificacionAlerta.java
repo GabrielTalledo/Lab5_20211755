@@ -37,6 +37,7 @@ public class NotificacionAlerta {
                 .setSmallIcon(R.drawable.alerta)
                 .setContentTitle(titulo)
                 .setContentText(mensaje)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(mensaje))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);

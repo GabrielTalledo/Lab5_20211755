@@ -59,11 +59,9 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_validacion"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +69,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_calorias"
@@ -104,6 +102,7 @@
                                 android:id="@+id/bienvenida"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginVertical="5dp"
                                 android:text="DATOS:"
                                 android:textAlignment="viewStart"
                                 android:textAllCaps="false"
@@ -144,9 +143,9 @@
 
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="20dp"
+                                android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
@@ -174,16 +173,26 @@
 
                                         <TextView
                                             android:id="@+id/textView211"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="16sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="Nombre completo"
                                             android:textSize="16sp"
                                             android:textStyle="bold" />
 
                                         <TextView
                                             android:id="@+id/text_nombre_perfil"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="14sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="Gabriel Talledo" />
                                     </LinearLayout>
                                 </LinearLayout>
@@ -213,16 +222,26 @@
 
                                         <TextView
                                             android:id="@+id/textView62211"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="16sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="Peso"
                                             android:textSize="16sp"
                                             android:textStyle="bold" />
 
                                         <TextView
                                             android:id="@+id/text_peso_perfil"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="14sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="88 Kg" />
                                     </LinearLayout>
 
@@ -253,16 +272,26 @@
 
                                         <TextView
                                             android:id="@+id/textView3922"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="16sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="Altura"
                                             android:textSize="16sp"
                                             android:textStyle="bold" />
 
                                         <TextView
                                             android:id="@+id/text_altura_perfil"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="14sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="176 cm" />
                                     </LinearLayout>
 
@@ -293,26 +322,41 @@
 
                                         <TextView
                                             android:id="@+id/textView3921111"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="16sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="Edad"
                                             android:textSize="16sp"
                                             android:textStyle="bold" />
 
                                         <TextView
                                             android:id="@+id/text_edad_perfil"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="14sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
                                             android:text="20 años" />
                                     </LinearLayout>
 
                                 </LinearLayout>
+
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="10dp"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="20dp"
+                                android:orientation="vertical"></LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
@@ -340,16 +384,26 @@
 
                                         <TextView
                                             android:id="@+id/textView422"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="16sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
                                             android:text="Género"
                                             android:textSize="16sp"
-                                            android:textStyle="bold" />
+                                            android:textStyle="bold"
+                                            android:maxLines="1" />
 
                                         <TextView
                                             android:id="@+id/text_genero_perfil"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="14sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="Hombre" />
                                     </LinearLayout>
                                 </LinearLayout>
@@ -379,16 +433,26 @@
 
                                         <TextView
                                             android:id="@+id/textView62212"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="16sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="Nivel físico"
                                             android:textSize="16sp"
                                             android:textStyle="bold" />
 
                                         <TextView
                                             android:id="@+id/text_actividadfisica_perfil"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="14sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="1500 kcal" />
                                     </LinearLayout>
 
@@ -419,18 +483,23 @@
 
                                         <TextView
                                             android:id="@+id/textV7iew393"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="16sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="Objetivo"
                                             android:textSize="16sp"
                                             android:textStyle="bold" />
 
                                         <TextView
                                             android:id="@+id/text_objetivo_perfil"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:autoSizeMaxTextSize="14sp"
-                                            android:autoSizeMinTextSize="8sp"
+                                            android:autoSizeMinTextSize="10sp"
                                             android:autoSizeStepGranularity="1sp"
                                             android:autoSizeTextType="uniform"
                                             android:maxLines="1"
@@ -464,8 +533,13 @@
 
                                         <TextView
                                             android:id="@+id/text2View34292"
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="16sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="N° Días"
                                             android:textSize="16sp"
                                             android:textStyle="bold" />
@@ -474,11 +548,17 @@
                                             android:id="@+id/text_numero_dia_perfil"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:autoSizeMaxTextSize="14sp"
+                                            android:autoSizeMinTextSize="10sp"
+                                            android:autoSizeStepGranularity="1sp"
+                                            android:autoSizeTextType="uniform"
+                                            android:maxLines="1"
                                             android:text="6"
                                             android:textAlignment="viewStart" />
                                     </LinearLayout>
 
                                 </LinearLayout>
+
                             </LinearLayout>
 
 
@@ -554,7 +634,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:orientation="vertical"
@@ -608,8 +688,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
-                                android:textSize="14sp"
-                                android:inputType="number" />
+                                android:inputType="number"
+                                android:textSize="14sp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -647,12 +727,12 @@
                         android:autoSizeTextType="uniform"
                         android:paddingHorizontal="16dp"
                         android:text="Al conocer tu consumo diario, puedes ajustar tu alimentación para perder, ganar o mantener peso. No se trata de restricciones, sino de tomar decisiones conscientes para alcanzar tus metas!"
+                        android:textAlignment="center"
                         android:textSize="14sp" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     

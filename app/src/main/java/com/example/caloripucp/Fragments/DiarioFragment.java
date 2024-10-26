@@ -35,6 +35,7 @@ public class DiarioFragment extends Fragment {
     private ElementoAdapter elementoAdapter;
     private CircularProgressBar progressBar;
     private final int umbralProgreso = 15;
+    private boolean flag = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,26 +55,34 @@ public class DiarioFragment extends Fragment {
         if (mainActivity != null) {
             mainActivity.getRegistroDiarioLiveData().observe(getViewLifecycleOwner(), registro -> {
                 // Actualizamos el adaptador cuando cambie el registro
-                elementoAdapter.setElementos(registro.getElementos());
-                rvElementos.scrollToPosition(rvElementos.getAdapter().getItemCount() - 1);
-                actualizarUI(registro,mainActivity.getPerfilLiveData().getValue(),view);
-                // Analizamos si debemos lanzar una alerta
-                float progreso = 100-(((float)registro.obtenerTotalConsumido()/(float)Almacenamiento.obtenerPerfilInicial((AppCompatActivity) getActivity()).getObjetivoCaloriasDiarias())*100);
-                if((int)progreso <= umbralProgreso && (int)progreso > 0){
-                    NotificacionAlerta alerta = new NotificacionAlerta(getContext());
-                    alerta.mostrarNotificacionExcesoCalorias("¡Atención! Se está acercando a su meta diaria de calorías!","Recuerde registrar su consumo de calorías restante.");
-                }else{
-                    if(progreso==0.0){
-                        NotificacionAlerta alerta = new NotificacionAlerta(getContext());
-                        alerta.mostrarNotificacionExcesoCalorias("Felicidades!","Ha llegado al límite de consumo de calorías.");
-                    }else{
-                        if((int)progreso<0){
+                if(registro != null){
+                    elementoAdapter.setElementos(registro.getElementos());
+                    rvElementos.scrollToPosition(rvElementos.getAdapter().getItemCount() - 1);
+                    actualizarUI(registro,mainActivity.getPerfilLiveData().getValue(),view);
+                    // Analizamos si debemos lanzar una alerta
+                    if (flag) {
+                        float progreso = 100-(((float)registro.obtenerTotalConsumido()/(float)Almacenamiento.obtenerPerfilInicial((AppCompatActivity) getActivity()).getObjetivoCaloriasDiarias())*100);
+                        if((int)progreso <= umbralProgreso && (int)progreso > 0){
                             NotificacionAlerta alerta = new NotificacionAlerta(getContext());
-                            alerta.mostrarNotificacionExcesoCalorias("","");
+                            alerta.mostrarNotificacionExcesoCalorias("¡Atención! Se está acercando a su meta diaria de calorías!","Recuerde registrar su consumo de calorías restante.");
+                        }else{
+                            if(progreso==0.0){
+                                NotificacionAlerta alerta = new NotificacionAlerta(getContext());
+                                alerta.mostrarNotificacionExcesoCalorias("Felicidades!","Ha llegado al límite de consumo de calorías.");
+                            }else{
+                                if((int)progreso<0){
+                                    NotificacionAlerta alerta = new NotificacionAlerta(getContext());
+                                    alerta.mostrarNotificacionExcesoCalorias("","");
+                                }
+                            }
                         }
+                    }else{
+                        flag = true;
                     }
-                }
 
+                }else{
+                    ((TextView)view.findViewById(R.id.text_elementoshow_diario)).setText("Aún no hay elementos!");
+                }
             });
         }
 

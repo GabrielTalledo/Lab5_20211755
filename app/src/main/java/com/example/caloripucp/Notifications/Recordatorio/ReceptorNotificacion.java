@@ -57,6 +57,7 @@ public class ReceptorNotificacion extends BroadcastReceiver {
                         .setSmallIcon(icono)
                         .setContentTitle(titulo)
                         .setContentText(mensaje)
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(mensaje))
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true);
@@ -107,6 +108,7 @@ public class ReceptorNotificacion extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.motivacion)
                 .setContentTitle(titulo)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(mensaje))
                 .setContentText(mensaje)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)

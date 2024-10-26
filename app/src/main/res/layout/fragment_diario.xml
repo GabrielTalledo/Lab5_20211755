@@ -119,7 +119,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -156,20 +156,21 @@
                     android:orientation="horizontal">
 
                     <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="20dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1">
 
                         <com.mikhaellopez.circularprogressbar.CircularProgressBar
                             android:id="@+id/progressbar_calorias_diario"
                             android:layout_width="match_parent"
-                            android:layout_height="160dp"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             app:cpb_background_progressbar_color="@color/md_theme_outlineVariant_mediumContrast"
                             app:cpb_background_progressbar_width="5dp"
-                            app:cpb_progress_max="100"
                             app:cpb_progress="67"
                             app:cpb_progress_direction="to_right"
+                            app:cpb_progress_max="100"
                             app:cpb_progressbar_color="@color/md_theme_inversePrimary_highContrast"
                             app:cpb_progressbar_width="10dp"
                             app:cpb_round_border="false" />
@@ -183,23 +184,34 @@
 
                             <TextView
                                 android:id="@+id/calorias_restantes_diario"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:autoSizeMaxTextSize="34sp"
+                                android:autoSizeMinTextSize="28sp"
+                                android:autoSizeStepGranularity="1sp"
+                                android:autoSizeTextType="uniform"
                                 android:text="1250"
+                                android:textAlignment="center"
                                 android:textSize="34sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/text_calos_restante"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Kcal restantes" />
+                                android:autoSizeMaxTextSize="14sp"
+                                android:autoSizeMinTextSize="10sp"
+                                android:autoSizeStepGranularity="1sp"
+                                android:autoSizeTextType="uniform"
+                                android:text="Kcal restantes"
+                                android:textAlignment="center" />
                         </LinearLayout>
                     </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -220,23 +232,28 @@
                                 android:src="@drawable/objetivo" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:id="@+id/textView2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:autoSizeMaxTextSize="16sp"
+                                    android:autoSizeMinTextSize="11sp"
+                                    android:autoSizeStepGranularity="1sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:maxLines="1"
                                     android:text="Meta por cumplir"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/text_meta_diario"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:text="1500 kcal" />
                             </LinearLayout>
                         </LinearLayout>
@@ -259,23 +276,28 @@
                                 android:src="@drawable/comida" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:id="@+id/textView62"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:autoSizeMaxTextSize="16sp"
+                                    android:autoSizeMinTextSize="11sp"
+                                    android:autoSizeStepGranularity="1sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:maxLines="1"
                                     android:text="Comida"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/text_caloria_comida_diario"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:text="1500 kcal" />
                             </LinearLayout>
 
@@ -299,23 +321,28 @@
                                 android:src="@drawable/ejercicio" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:id="@+id/textView39"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:autoSizeMaxTextSize="16sp"
+                                    android:autoSizeMinTextSize="11sp"
+                                    android:autoSizeStepGranularity="1sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:maxLines="1"
                                     android:text="Ejercicio"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/text_caloria_ejercicio_diario"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:text="1500 kcal" />
                             </LinearLayout>
 
@@ -339,23 +366,28 @@
                                 android:src="@drawable/calorias" />
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:id="@+id/textView392"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:autoSizeMaxTextSize="16sp"
+                                    android:autoSizeMinTextSize="11sp"
+                                    android:autoSizeStepGranularity="1sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:maxLines="1"
                                     android:text="Total consumido"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:id="@+id/text_caloria_total_diario"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:text="1500 kcal" />
                             </LinearLayout>
 
@@ -394,6 +426,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:clipChildren="false"
+            android:clipToOutline="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -406,21 +439,27 @@
         android:id="@+id/expandable_fab_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        
+        <com.nambimobile.widgets.efab.Overlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:overlay_color="@color/black"
+            app:overlay_alpha="0.15"/>
 
         <com.nambimobile.widgets.efab.ExpandableFab
             android:id="@+id/expandable_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="25dp"
             app:efab_closingAnticipateTension="0"
             app:efab_color="@color/md_theme_primary"
             app:efab_icon="@drawable/mas"
             app:efab_iconAnimationRotationDeg="-225"
             app:label_backgroundColor="@color/md_theme_onPrimary"
             app:label_font="@font/product_sans"
-            app:label_textColor="@color/md_theme_primary" />
+            app:label_textColor="@color/md_theme_primary"/>
 
         <com.nambimobile.widgets.efab.FabOption
             android:id="@+id/btn_agregar_comida_diario"

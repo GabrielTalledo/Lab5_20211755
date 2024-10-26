@@ -73,6 +73,7 @@ public class ElementoAdapter extends RecyclerView.Adapter<ElementoAdapter.Elemen
         private LinearLayout adorno2;
         private View adornopos;
         private Button btnEliminar;
+        private TextView infoTiempo;
 
         ElementoViewHolder(View itemView) {
             super(itemView);
@@ -84,23 +85,27 @@ public class ElementoAdapter extends RecyclerView.Adapter<ElementoAdapter.Elemen
             adorno2 = itemView.findViewById(R.id.adorno2);
             adornopos = itemView.findViewById(R.id.adorno_pos);
             btnEliminar = itemView.findViewById(R.id.btn_eliminar_elemento);
+            infoTiempo = itemView.findViewById(R.id.text_infoelement);
         }
 
         void bind(Elemento elemento, ElementoViewHolder holder) {
             nombreTextView.setText(elemento.getNombre());
             caloriasTextView.setText(String.valueOf(elemento.getCalorias() + " Kcal"));
             horaTextView.setText(elemento.getHora());
+            infoTiempo.setText(elemento.obtenerInfoTiempo());
             if(elemento.getTipo().equals("Comida")){
                 tipoTextView.setText("COMIDA");
                 adornopos.setBackgroundResource(R.color.md_theme_inversePrimary_highContrast);
                 adorno1.setBackgroundResource(R.color.md_theme_inverseOnSurface);
                 adorno2.setBackgroundResource(R.color.md_theme_inverseOnSurface);
+                infoTiempo.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.md_theme_inversePrimary));
                 btnEliminar.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.md_theme_inversePrimary_mediumContrast));
             }else{
                 tipoTextView.setText("EJERCICIO");
                 adornopos.setBackgroundResource(R.color.md_theme_tertiaryFixedDim);
                 adorno1.setBackgroundResource(R.color.md_theme_tertiaryFixed);
                 adorno2.setBackgroundResource(R.color.md_theme_tertiaryFixed);
+                infoTiempo.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.md_theme_tertiary));
                 btnEliminar.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.md_theme_tertiaryContainer_mediumContrast));
             }
 

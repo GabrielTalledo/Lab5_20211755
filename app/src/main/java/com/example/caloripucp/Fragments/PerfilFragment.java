@@ -63,7 +63,7 @@ public class PerfilFragment extends Fragment {
                 closeKeyboard();
                 perfil.setIntervaloMotivacionNoti(Integer.parseInt(((TextInputEditText)view.findViewById(R.id.field_modificar_noti_perfil)).getText().toString()));
                 Almacenamiento.guardarPerfilInicial(perfil,(AppCompatActivity) getActivity());
-                Snackbar.make(((AppActivity) getActivity()).getBinding().getRoot(), "Se modificó el intervalo de motivación!", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(((AppActivity) getActivity()).getBinding().getRoot(), "Se modificó el intervalo de motivación!", Snackbar.LENGTH_LONG).setAnchorView(R.id.bottom_navigation).show();
                 ((TextView)view.findViewById(R.id.text_intervalo_actual_perfil)).setText("Intervalo actual: "+perfil.getIntervaloMotivacionNoti()+" minuto"+(perfil.getIntervaloMotivacionNoti()==1?"":"s"));
 
                 // Método con worker (solo funciona si la app esta en primer o segundo plano)
