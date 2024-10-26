@@ -131,7 +131,7 @@ public class InicioActivity extends AppCompatActivity {
                 // Obtenemos permisos de notificaciones:
 
                 if(!askPermission()){
-                    Snackbar.make(binding.getRoot(), "Debe habilitar los permisos de notificaciones!", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(binding.getRoot(), "Debe habilitar los permisos de notificaciones!", Snackbar.LENGTH_LONG).show();
                 }else{
                     // Seteamos el perfil inicial:
                     perfil.setNombre(field_nombre.getText().toString());
@@ -211,11 +211,14 @@ public class InicioActivity extends AppCompatActivity {
         boolean permiso = true;
         // TIRAMISU = 33
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+                (ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED)) {
 
             ActivityCompat.requestPermissions(InicioActivity.this, new String[]{POST_NOTIFICATIONS}, 101);
+
         }
-        if(ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED){
+        if((ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED)){
             permiso = false;
         }
         return permiso;
