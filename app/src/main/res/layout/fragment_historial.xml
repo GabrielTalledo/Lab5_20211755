@@ -368,7 +368,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
-                                    app:cpb_background_progressbar_color="#D9D7C3"
+                                    app:cpb_background_progressbar_color="@color/md_theme_outlineVariant"
                                     app:cpb_background_progressbar_width="5dp"
                                     app:cpb_progress="67"
                                     app:cpb_progress_direction="to_right"
@@ -393,7 +393,7 @@
                                         android:textStyle="bold" />
 
                                     <TextView
-                                        android:id="@+id/text_calos_restante"
+                                        android:id="@+id/text_calos_restante_historial"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Kcal restantes" />

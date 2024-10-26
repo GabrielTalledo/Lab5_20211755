@@ -1,28 +1,42 @@
 package com.example.caloripucp.Activities;
+import static android.Manifest.permission.POST_NOTIFICATIONS;
 
+
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.example.caloripucp.Beans.Catalogo;
 import com.example.caloripucp.Beans.Elemento;
 import com.example.caloripucp.Beans.Perfil;
 import com.example.caloripucp.Beans.Registro;
 import com.example.caloripucp.Beans.RegistroHistorial;
+import com.example.caloripucp.Fragments.PerfilFragment;
+import com.example.caloripucp.Notifications.Motivacion.NotificationWorker;
+import com.example.caloripucp.Notifications.Recordatorio.ProgramadorNotificacion;
+import com.example.caloripucp.Notifications.Recordatorio.ReceptorNotificacion;
 import com.example.caloripucp.R;
 import com.example.caloripucp.Tools.Almacenamiento;
 import com.example.caloripucp.databinding.ActivityInicioBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -38,6 +52,7 @@ public class InicioActivity extends AppCompatActivity {
     AutoCompleteTextView field_genero;
     AutoCompleteTextView field_actividad;
     AutoCompleteTextView field_objetivo;
+    AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +61,11 @@ public class InicioActivity extends AppCompatActivity {
         // Binding:
         binding = ActivityInicioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Creamos los canales de notificaciones:
+        createNotificationChannel("recordatorio_channel", "Recordatorios", "Notificaciones de recordatorios para las comidas del día.");
+        createNotificationChannel("alertas_channel", "Alertas", "Notificaciones de alertas sobre el consumo de calorías durante el día.");
+        createNotificationChannel("motivacion_channel", "Motivación", "Notificaciones con mensajes de motivación durante el día.");
 
         // Ya cuenta con un perfil?
 
@@ -112,29 +132,40 @@ public class InicioActivity extends AppCompatActivity {
                 perfil.setAltura(Double.parseDouble(field_altura.getText().toString()));
                 perfil.setEdad(Double.parseDouble(field_edad.getText().toString()));
                 perfil.setObjetivoCaloriasDiarias(calcularCaloriasDiarias());
-                perfil.setIntervaloMotivacionNoti(30);
-                Log.d("TAG", ""+perfil.getObjetivoCaloriasDiarias());
+                perfil.setIntervaloMotivacionNoti(1);
                 // Creamos el archivo del perfil y guardamos el objeto:
                 Almacenamiento.guardarPerfilInicial(perfil, this);
-                Perfil perfilDeAlmacenamiento = Almacenamiento.obtenerPerfilInicial(this);
-                Log.d("TAG", "Nombre: "+perfilDeAlmacenamiento.getNombre());
-                Log.d("TAG", "Calorias Diarias: "+perfilDeAlmacenamiento.getObjetivoCaloriasDiarias());
                 // Creamos el primer registro (el registro actual):
                 Registro registroActual = new Registro();
                 registroActual.setearInformacionDia(1);
                 // Guardamos este primer registro:
                 Almacenamiento.guardarRegistroDiario(registroActual, this);
-                Registro registroDeAlmacenamiento = Almacenamiento.obtenerRegistroDiario(this);
                 // Guardamos el catalogo:
                 Almacenamiento.guardarCatalogo(catalogo,this);
-                Catalogo xd = Almacenamiento.obtenerCatalogo(this);
-                Log.d("XDDDDDDD", "onCreate: " + xd.getCatalogoAlimentos().get(1).getNombre());
                 // Guardamos el historial:
                 Almacenamiento.guardarHistorial(historial,this);
+                // Notificaciones de recordatorios personalizados:
+                // Debido a la optimizacion de batería de android, algunas no se muestran correctamente y tampoco en el
+                // tiempo exacto
+                ProgramadorNotificacion.programarRecordatorio(this, 9, 0, "Recordatorio de desayuno", "Recuerda registrar tu delicioso desayuno en la app!","Diario",R.drawable.desayuno);
+                ProgramadorNotificacion.programarRecordatorio(this, 12, 0, "Recordatorio de almuerzo", "No olvides de registrar tu almuerzo nutritivo en la app!","Diario",R.drawable.almuerzo);
+                ProgramadorNotificacion.programarRecordatorio(this, 19, 0, "Recordatorio de cena", "Registra tu cena nocturna en la app, no lo olvides!","Diario",R.drawable.comida2);
+                ProgramadorNotificacion.programarRecordatorio(this, 23, 0, "Recordatorio de fin de día", "No has registrado comidas hoy. Recuerda llevar tu registro para lograr tus metas!","Diario",R.drawable.alerta);
+                // Notificaciones de motivación:
+
+                // Método con worker (solo funciona si la app esta en primer o segundo plano)
+                //WorkManager.getInstance(this).cancelAllWork();
+                //PeriodicWorkRequest notificationWorkRequest = new PeriodicWorkRequest.Builder(NotificationWorker.class, perfil.getIntervaloMotivacionNoti(), TimeUnit.MINUTES).setInitialDelay(perfil.getIntervaloMotivacionNoti(),TimeUnit.MINUTES).build();
+                //WorkManager.getInstance(this).enqueueUniquePeriodicWork("NotificacionesPeriodicas", ExistingPeriodicWorkPolicy.REPLACE,notificationWorkRequest);
+
+                alarmManager = (AlarmManager) getSystemService(this.ALARM_SERVICE);
+                programarNotificacionMotivacion();
+
                 // Pasamos a la app:
                 startActivity(new Intent(this,AppActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 supportFinishAfterTransition();
             }
+
         });
 
     }
@@ -143,6 +174,41 @@ public class InicioActivity extends AppCompatActivity {
     // ---------
     //  MÉTODOS:
     // ---------
+
+    // Notificaciones:
+
+    private void programarNotificacionMotivacion() {
+        Intent intent = new Intent(this, ReceptorNotificacion.class);
+        intent.putExtra("MotivateWe", "GG");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 11, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        // Establecemos la alarma para que se repita cada 1 minuto
+        long interval = perfil.getIntervaloMotivacionNoti()*60*1000; // en milisegundos
+        long triggerTime = System.currentTimeMillis() + interval; // Primero se ejecuta despues del tiempo del intervalor
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, interval, pendingIntent);
+    }
+
+    public void createNotificationChannel(String channelId,String channelName,String channelDescription) {
+        NotificationChannel channel = new NotificationChannel(channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription(channelDescription);
+        channel.enableVibration(true);
+
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+        askPermission();
+    }
+
+    public void askPermission() {
+        // TIRAMISU = 33
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+
+            ActivityCompat.requestPermissions(InicioActivity.this, new String[]{POST_NOTIFICATIONS}, 101);
+        }
+    }
+
+    // Otros:
 
     public ArrayList<Elemento> crearCatalogoAlimentos() {
         ArrayList<Elemento> alimentos = new ArrayList<>();

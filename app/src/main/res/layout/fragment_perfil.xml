@@ -98,17 +98,33 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:gravity="center"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/bienvenida"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="DATOS:"
                                 android:textAlignment="viewStart"
                                 android:textAllCaps="false"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center|end"
+                                android:orientation="vertical">
+
+                                <Button
+                                    android:id="@+id/btn_eliminar_perfil"
+                                    style="?attr/materialIconButtonFilledStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/md_theme_errorContainer_highContrast"
+                                    android:contentDescription="Eliminar perfil"
+                                    app:icon="@drawable/borrar" />
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -562,7 +578,8 @@
                         android:layout_marginBottom="16dp"
                         android:paddingHorizontal="16dp"
                         android:text="Intervalo actual: 30 minutos"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:id="@+id/layout_campos_pos"
@@ -611,7 +628,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="2dp
+"
                         android:layout_marginBottom="16dp"
                         android:layout_weight="0"
                         android:text="Recuerda..."
@@ -623,8 +641,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
+                        android:autoSizeMaxTextSize="14sp"
+                        android:autoSizeMinTextSize="8sp"
+                        android:autoSizeStepGranularity="1sp"
+                        android:autoSizeTextType="uniform"
                         android:paddingHorizontal="16dp"
-                        android:text="Al conocer tu consumo diario, puedes ajustar tu alimentación para perder, ganar o mantener peso. No se trata de restricciones, sino de tomar decisiones conscientes para alcanzar tus metas!" />
+                        android:text="Al conocer tu consumo diario, puedes ajustar tu alimentación para perder, ganar o mantener peso. No se trata de restricciones, sino de tomar decisiones conscientes para alcanzar tus metas!"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

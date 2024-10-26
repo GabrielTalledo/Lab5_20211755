@@ -1,6 +1,7 @@
 package com.example.caloripucp.Activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -58,7 +59,12 @@ public class AppActivity extends AppCompatActivity implements BottomNavigationVi
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new DiarioFragment()).commit();
         }
 
-        // Lógica:
+        // Gestionamos intent de la notificacion de motivacion:
+        Log.d("ASDADASD", "onCreate: "+getIntent().getStringExtra("motivacionFragment"));
+        if(getIntent().getStringExtra("motivacionFragment") != null){
+            bottomNav.setSelectedItemId(R.id.perfil);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new PerfilFragment()).commit();
+        }
 
     }
 

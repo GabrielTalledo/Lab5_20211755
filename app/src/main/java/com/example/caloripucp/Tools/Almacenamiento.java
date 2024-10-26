@@ -37,6 +37,8 @@ public abstract class Almacenamiento {
             return null;
         }
     }
+
+
     public static void eliminarPerfilInicial(AppCompatActivity inicioActivity){
         String archivoPerfilInicial = "perfilInicial";
         inicioActivity.deleteFile(archivoPerfilInicial);
@@ -103,6 +105,15 @@ public abstract class Almacenamiento {
     public static Registro obtenerRegistroDiario(AppCompatActivity activity){
         String archivoRegistroActual = "registroActual";
         try(FileInputStream fis = activity.openFileInput(archivoRegistroActual); ObjectInputStream ois = new ObjectInputStream(fis)){
+            return (Registro) ois.readObject();
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static Registro obtenerRegistroDiario(Context contex){
+        String archivoRegistroActual = "registroActual";
+        try(FileInputStream fis = contex.openFileInput(archivoRegistroActual); ObjectInputStream ois = new ObjectInputStream(fis)){
             return (Registro) ois.readObject();
         }catch(Exception e){
             e.printStackTrace();

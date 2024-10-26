@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,7 +62,7 @@ public class HistorialFragment extends Fragment {
             layoutValidacion.setVisibility(View.VISIBLE);
 
             // Por default, se obtiene el último registro:
-            registro = historial.getHistorial().get(numeroDia);
+            registro = historial.getHistorial().get(historial.getHistorial().size());
             elementoAdapter.setElementos(registro.getElementos());
             rvElementos.scrollToPosition(0);
             actualizarUI(registro,Almacenamiento.obtenerPerfilInicial((AppCompatActivity) getActivity()),view);
@@ -127,16 +128,26 @@ public class HistorialFragment extends Fragment {
         ((TextView)view.findViewById(R.id.text_caloria_ejercicio_historial)).setText(""+registro.obtenerCaloriasEjercicio()+" kcal");
         ((TextView)view.findViewById(R.id.text_caloria_total_historial)).setText(""+registro.obtenerTotalConsumido()+" kcal");
         if(perfil.getObjetivoCaloriasDiarias()-registro.obtenerTotalConsumido() <= 0){
-            ((TextView)view.findViewById(R.id.calorias_restantes_historial)).setText(""+(0));
+            ((TextView)view.findViewById(R.id.calorias_restantes_historial)).setText(""+(-1*(perfil.getObjetivoCaloriasDiarias()-registro.obtenerTotalConsumido())));
         }else{
             ((TextView)view.findViewById(R.id.calorias_restantes_historial)).setText(""+(perfil.getObjetivoCaloriasDiarias()-registro.obtenerTotalConsumido()));
         }
         float progreso = 100-(((float)registro.obtenerTotalConsumido()/(float)perfil.getObjetivoCaloriasDiarias())*100);
         if(progreso<=0){
             progressBar.setProgress(0);
+            ((TextView)view.findViewById(R.id.text_calos_restante_historial)).setText("Kcal restantes!");
+            if(progreso<0){
+                ((TextView)view.findViewById(R.id.text_calos_restante_historial)).setText("Kcal excedidas!");
+                progressBar.setBackgroundProgressBarColor(ContextCompat.getColor(requireContext(), R.color.md_theme_error));
+            }
         }else{
+            if(progreso<15){
+                progressBar.setProgressBarColor(ContextCompat.getColor(requireContext(),R.color.md_theme_tertiaryContainer_mediumContrast));
+            }else{
+                progressBar.setProgressBarColor(ContextCompat.getColor(requireContext(),R.color.md_theme_primaryContainer_mediumContrast));
+            }
+            progressBar.setBackgroundProgressBarColor(ContextCompat.getColor(requireContext(),R.color.md_theme_outlineVariant));
             progressBar.setProgress((int) progreso);
-
         }
     }
 

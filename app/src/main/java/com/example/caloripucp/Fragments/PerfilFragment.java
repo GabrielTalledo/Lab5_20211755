@@ -1,28 +1,40 @@
 package com.example.caloripucp.Fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.example.caloripucp.Activities.AppActivity;
+import com.example.caloripucp.Activities.InicioActivity;
 import com.example.caloripucp.Adapters.ElementoAdapter;
 import com.example.caloripucp.Beans.Perfil;
-import com.example.caloripucp.Beans.Registro;
+import com.example.caloripucp.Notifications.Motivacion.NotificationWorker;
+import com.example.caloripucp.Notifications.Recordatorio.NotificacionProgramadaUtils;
+import com.example.caloripucp.Notifications.Recordatorio.ReceptorNotificacion;
 import com.example.caloripucp.R;
 import com.example.caloripucp.Tools.Almacenamiento;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
+
+import java.util.concurrent.TimeUnit;
 
 public class PerfilFragment extends Fragment {
 
@@ -31,6 +43,8 @@ public class PerfilFragment extends Fragment {
     private CircularProgressBar progressBar;
     Perfil perfil;
     Button btnIntervalo;
+    Button btnBorrar;
+    AlarmManager alarmManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,8 +64,26 @@ public class PerfilFragment extends Fragment {
                 Snackbar.make(((AppActivity) getActivity()).getBinding().getRoot(), "Se modificó el intervalo de motivación!", Snackbar.LENGTH_LONG).show();
                 ((TextView)view.findViewById(R.id.text_intervalo_actual_perfil)).setText("Intervalo actual: "+perfil.getIntervaloMotivacionNoti()+" minutos");
 
+                // Método con worker (solo funciona si la app esta en primer o segundo plano)
+                // Eliminamos los workers anteriores:
+                //WorkManager.getInstance(getContext()).cancelAllWork();
+                // Creamos workers con el nuevo intervalo:
+                //PeriodicWorkRequest notificationWorkRequest = new PeriodicWorkRequest.Builder(NotificationWorker.class, perfil.getIntervaloMotivacionNoti(), TimeUnit.MINUTES).setInitialDelay(perfil.getIntervaloMotivacionNoti(),TimeUnit.MINUTES).build();
+                //WorkManager.getInstance(getContext()).enqueueUniquePeriodicWork("NotificacionesPeriodicas", ExistingPeriodicWorkPolicy.REPLACE,notificationWorkRequest);
+
+                alarmManager = (AlarmManager) getActivity().getSystemService(getContext().ALARM_SERVICE);
+                Intent intent = new Intent(getContext(), ReceptorNotificacion.class);
+                intent.putExtra("MotivateWe","true");
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 11, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                alarmManager.cancel(pendingIntent);
+                programarNotificacion();
             }
 
+        });
+
+        btnBorrar = view.findViewById(R.id.btn_eliminar_perfil);
+        btnBorrar.setOnClickListener(view1 -> {
+            mostrarDialogBorrar(getContext());
         });
 
         return view;
@@ -81,9 +113,9 @@ public class PerfilFragment extends Fragment {
 
         // Perfil
         ((TextView)view.findViewById(R.id.text_nombre_perfil)).setText(""+perfil.getNombre());
-        ((TextView)view.findViewById(R.id.text_peso_perfil)).setText(""+perfil.getPeso() + " Kg");
-        ((TextView)view.findViewById(R.id.text_altura_perfil)).setText(""+perfil.getAltura()+" cm");
-        ((TextView)view.findViewById(R.id.text_edad_perfil)).setText(""+perfil.getEdad()+" años");
+        ((TextView)view.findViewById(R.id.text_peso_perfil)).setText(""+(int)perfil.getPeso() + " Kg");
+        ((TextView)view.findViewById(R.id.text_altura_perfil)).setText(""+(int)perfil.getAltura()+" cm");
+        ((TextView)view.findViewById(R.id.text_edad_perfil)).setText(""+(int)perfil.getEdad()+" años");
         ((TextView)view.findViewById(R.id.text_genero_perfil)).setText(""+perfil.getGenero());
         ((TextView)view.findViewById(R.id.text_objetivo_perfil)).setText(""+perfil.getObjetivo());
         ((TextView)view.findViewById(R.id.text_numero_dia_perfil)).setText(""+numeroDias);
@@ -91,6 +123,42 @@ public class PerfilFragment extends Fragment {
         ((TextView)view.findViewById(R.id.text_intervalo_actual_perfil)).setText("Intervalo actual: "+perfil.getIntervaloMotivacionNoti()+" minutos");
 
 
+    }
+
+    // Mostrar Dialog:
+    public void mostrarDialogBorrar(Context context){
+
+        new MaterialAlertDialogBuilder(context)
+                .setTitle("Eliminar perfil")
+                .setMessage("¿Estás seguro que deseas borrar tu información de perfil? Esta acción no se puede revertir!")
+                .setPositiveButton("Aceptar", (dialog, which) -> {
+
+                    // Eliminamos los workers:
+                    WorkManager.getInstance(getContext()).cancelAllWorkByTag("motivacion");
+                    // Cancelamos las demas notificaciones:
+                    NotificacionProgramadaUtils utils = new NotificacionProgramadaUtils(getContext());
+                    utils.cancelAllNotifications();
+                    Almacenamiento.eliminarPerfilInicial(((AppCompatActivity)getActivity()));
+                    startActivity(new Intent(getContext(), InicioActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    getActivity().supportFinishAfterTransition();
+                })
+                .setNegativeButton("Cancelar", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .show();
+
+    }
+
+    // Notificaciones:
+
+    private void programarNotificacion() {
+        Intent intent = new Intent(getContext(), ReceptorNotificacion.class);
+        intent.putExtra("MotivateWe", "GG");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 11, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        // Establecemos la alarma para que se repita cada x minutos
+        long interval = perfil.getIntervaloMotivacionNoti()*60*1000; // en milisegundos
+        long triggerTime = System.currentTimeMillis() + interval; // Primero se ejecuta despues del tiempo del intervalor
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, interval, pendingIntent);
     }
 
 }
