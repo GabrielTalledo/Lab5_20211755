@@ -99,7 +99,7 @@ public class PerfilFragment extends Fragment {
         Intent intent = new Intent(getContext(), ReceptorNotificacion.class);
         intent.putExtra("MotivateWe", "GG");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 11, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        // Establecemos la alarma para que se repita cada 1 minuto
+        // Establecemos la alarma para que se repita segun el intervalo
         long interval = perfil.getIntervaloMotivacionNoti()*60*1000; // en milisegundos
         long triggerTime = System.currentTimeMillis() + interval; // Primero se ejecuta despues del tiempo del intervalor
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime, interval, pendingIntent);
