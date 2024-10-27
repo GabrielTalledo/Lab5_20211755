@@ -50,7 +50,7 @@ public class Registro implements Serializable {
             if(elemento.getTipo().equals("Comida")){
                 calorias += elemento.getCalorias();
             }else{
-                calorias += elemento.getCalorias();
+                calorias -= elemento.getCalorias();
             }
         }
         return calorias;

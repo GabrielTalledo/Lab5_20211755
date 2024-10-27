@@ -152,6 +152,7 @@ public class DiarioFragment extends Fragment {
             ((TextView)view.findViewById(R.id.calorias_restantes_diario)).setText(""+(perfil.getObjetivoCaloriasDiarias()-registro.obtenerTotalConsumido()));
         }
         float progreso = 100-(((float)registro.obtenerTotalConsumido()/(float)perfil.getObjetivoCaloriasDiarias())*100);
+        progreso = progreso > 100 ? 100 : progreso;
         if(progreso<=0){
             progressBar.setProgress(0);
             ((TextView)view.findViewById(R.id.text_calos_restante)).setText("Kcal restantes!");
